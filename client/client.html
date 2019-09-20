@@ -6,6 +6,121 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
+    //function to handle our xhr response
+    const handleResponse = (xhr) => {
+      //grab the content section
+      const content = document.querySelector("#content");
+      
+      ///parse the response text into a JSON object
+      const obj = JSON.parse(xhr.response);
+      
+      //check the xhr status code and handle accordingly
+      switch(xhr.status) {
+        case 200: //success
+          content.innerHTML = `<b>Success</b>`;
+          break;
+        case 400: //bad request 
+          content.innerHTML = `<b>Bad Request</b>`;
+          break;
+        case 401: // missing the query parameter
+          content.innerHTML = `<b>Missing the Query Parameter</b>`;
+          break;
+        case 403: // Forbidden
+          content.innerHTML = `<b>Forbidden</b>`;
+          break;
+        case 404: //not found (requested resource does not exist)
+          content.innerHTML = `<b>Resource Not Found</b>`;
+          break;
+        case 500: //internal
+          content.innerHTML = `<b>Internal</b>`;
+          break;
+        default: //default other errors we are not handling in this example
+          content.innerHTML = `Error code not implemented by client.`;
+          break;
+      }
+      
+      //If the server sent back a message in JSON, add it to the screen.
+      if(obj.message) {
+        content.innerHTML += `<p>Message: ${obj.message}</p>`
+      }
+    };
+    
+    //function to send ajax
+    const sendAjax = (url) => {
+      //create a new xhr (ajax) request. 
+      //Remember that these are ASYNCHRONOUS
+      const xhr = new XMLHttpRequest();
+      //set the xhr to a GET request to a certain URL
+      xhr.open('GET', url);
+      //Set the accept headers to the desired response mime type
+      //Server does NOT have to support this. It is a gentle request.
+      xhr.setRequestHeader ("Accept", 'application/json');
+
+      //When the xhr loads, call handleResponse and pass the xhr object
+      xhr.onload = () => handleResponse(xhr);
+
+      //send our ajax request to the server
+      xhr.send();
+    };
+
+    const init = () => {
+        
+        const pageSelector = document.querySelector('#page').value;
+        console.log(pageSelector);
+        const typeSelector = document.querySelector('#type').value;
+        console.log(typeSelector);
+        
+        const success = () => sendAjax('/success');
+        const badRequest = () => sendAjax('/badRequest');
+        const notFound = () => sendAjax('/notFoundURL');
+        //const unauthorized = () => sendAjax('/unauthorized');
+        const forbidden = () => sendAjax('/forbidden');
+        const internal = () => sendAjax('/internal');
+        
+        const userForm = document.querySelector('#send');
+        
+        
+        if (pageSelector == "/success"){
+            userForm.addEventListener('click', success);
+            console.log("Success!");
+        }
+        else if (pageSelector == "/badRequest"){
+            userForm.addEventListener('click', badRequest);
+            console.log("Bad Request!");
+        }
+        else if (pageSelector == "/notFound"){
+            userForm.addEventListener('click', notFound);
+            console.log("Not Found");
+        }
+        /*
+        else if (pageSelector == "/unauthorized"){
+            userForm.addEventListener('click', unauthorized);
+            console.log("Unauthorized");
+        }
+        */
+        else if (pageSelector == "/forbidden"){
+            userForm.addEventListener('click', forbidden);
+            console.log("Forbidden");
+        }
+        else if (pageSelector == "/internal"){
+            userForm.addEventListener('click', internal);
+            console.log("internal");
+        }
+        
+        
+        
+
+      //function to handle our request
+        /*
+        const getValue = (e) => requestUpdate(e, sendButton);
+        console.log(getValue);
+      //add event listener
+        sendButton.addEventListener('submit', getValue);
+        */
+    };
+
+    window.onload = init;
+
 
   </script>
 </head>

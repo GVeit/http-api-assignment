@@ -1,0 +1,27 @@
+{
+  "name": "http-api-assignment",
+  "version": "1.0.0",
+  "description": "Http API Assignment for IGME 430",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"It works"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GVeit/http-api-assignment.git"
+  },
+  "author": "Gabriel Veit",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/GVeit/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/GVeit/http-api-assignment#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
