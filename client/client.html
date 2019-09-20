@@ -47,6 +47,10 @@
     
     //function to send ajax
     const sendAjax = (url) => {
+        
+        const typeSelector = document.querySelector('#type').value;
+        console.log(typeSelector);
+        
       //create a new xhr (ajax) request. 
       //Remember that these are ASYNCHRONOUS
       const xhr = new XMLHttpRequest();
@@ -54,7 +58,7 @@
       xhr.open('GET', url);
       //Set the accept headers to the desired response mime type
       //Server does NOT have to support this. It is a gentle request.
-      xhr.setRequestHeader ("Accept", 'application/json');
+      xhr.setRequestHeader ("Accept", typeSelector);
 
       //When the xhr loads, call handleResponse and pass the xhr object
       xhr.onload = () => handleResponse(xhr);
@@ -65,48 +69,58 @@
 
     const init = () => {
         
-        const pageSelector = document.querySelector('#page').value;
-        console.log(pageSelector);
-        const typeSelector = document.querySelector('#type').value;
-        console.log(typeSelector);
+        //const pageSelector = document.querySelector('#page').value;
+        //console.log(pageSelector);
+//
+        //const success = () => sendAjax('/success');
+        //const badRequest = () => sendAjax('/badRequest');
+        //const notFound = () => sendAjax('/notFoundURL');
+        ////const unauthorized = () => sendAjax('/unauthorized');
+        //const forbidden = () => sendAjax('/forbidden');
+        //const internal = () => sendAjax('/internal');
+        //
+        //const userForm = document.querySelector('#send');
+        //
+        //
+        //if (pageSelector == "/success"){
+        //    userForm.addEventListener('click', success);
+        //    console.log("Success!");
+        //}
+        //else if (pageSelector == "/badRequest"){
+        //    userForm.addEventListener('click', badRequest);
+        //    console.log("Bad Request!");
+        //}
+        //else if (pageSelector == "/notFound"){
+        //    userForm.addEventListener('click', notFound);
+        //    userForm.addEventListener('click', notFound);
+        //    console.log("Not Found");
+        //}
+        ///*
+        //else if (pageSelector == "/unauthorized"){
+        //    userForm.addEventListener('click', unauthorized);
+        //    console.log("Unauthorized");
+        //}
+        //*/
+        //else if (pageSelector == "/forbidden"){
+        //    userForm.addEventListener('click', forbidden);
+        //    console.log("Forbidden");
+        //}
+        //else if (pageSelector == "/internal"){
+        //    userForm.addEventListener('click', internal);
+        //    console.log("internal");
+        //}
         
-        const success = () => sendAjax('/success');
-        const badRequest = () => sendAjax('/badRequest');
-        const notFound = () => sendAjax('/notFoundURL');
-        //const unauthorized = () => sendAjax('/unauthorized');
-        const forbidden = () => sendAjax('/forbidden');
-        const internal = () => sendAjax('/internal');
+        
+        
         
         const userForm = document.querySelector('#send');
         
+        const request = () => {
+            const pageSelector = document.querySelector('#page').value;
+            sendAjax(pageSelector);
+        };
         
-        if (pageSelector == "/success"){
-            userForm.addEventListener('click', success);
-            console.log("Success!");
-        }
-        else if (pageSelector == "/badRequest"){
-            userForm.addEventListener('click', badRequest);
-            console.log("Bad Request!");
-        }
-        else if (pageSelector == "/notFound"){
-            userForm.addEventListener('click', notFound);
-            console.log("Not Found");
-        }
-        /*
-        else if (pageSelector == "/unauthorized"){
-            userForm.addEventListener('click', unauthorized);
-            console.log("Unauthorized");
-        }
-        */
-        else if (pageSelector == "/forbidden"){
-            userForm.addEventListener('click', forbidden);
-            console.log("Forbidden");
-        }
-        else if (pageSelector == "/internal"){
-            userForm.addEventListener('click', internal);
-            console.log("internal");
-        }
-        
+        userForm.addEventListener('click', request);
         
         
 
