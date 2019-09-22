@@ -132,7 +132,7 @@ const unauthorized = (request, response, acceptedTypes, params) => {
 
 // function to show a success status code
 const forbidden = (request, response, acceptedTypes) => {
-  //console.dir('forbidden');
+   console.dir('forbidden');
   // message to send
   const responseJSON = {
     message: 'Forbidden',
